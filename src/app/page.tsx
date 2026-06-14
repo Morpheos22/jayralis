@@ -1074,7 +1074,7 @@ export default function Home() {
               className="flex flex-col sm:flex-row gap-4 justify-center items-center"
             >
               <motion.a
-                href="mailto:info@jayralis.fyi"
+                href="mailto:Ceo@jayralis.fyi"
                 className="group px-10 py-4 bg-gold text-navy-dark font-bold rounded-full text-base shadow-xl shadow-gold/25 hover:shadow-gold/40 transition-all duration-300 flex items-center gap-2"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -1083,7 +1083,7 @@ export default function Home() {
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </motion.a>
               <motion.a
-                href="mailto:info@jayralis.fyi"
+                href="mailto:Ceo@jayralis.fyi"
                 className="group px-10 py-4 border-2 border-gold/30 text-gold font-semibold rounded-full text-base hover:bg-gold/10 transition-all duration-300 flex items-center gap-2"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -1147,10 +1147,10 @@ export default function Home() {
               <div className="flex flex-col gap-3 text-white/40 text-sm">
                 <span>Abuja, Nigeria</span>
                 <a
-                  href="mailto:info@jayralis.fyi"
+                  href="mailto:Ceo@jayralis.fyi"
                   className="hover:text-gold transition-colors"
                 >
-                  info@jayralis.fyi
+                  Ceo@jayralis.fyi
                 </a>
               </div>
             </div>
