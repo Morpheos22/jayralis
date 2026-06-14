@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { ArrowRight, ChevronDown, Menu, X, ArrowUpRight } from "lucide-react";
 
@@ -310,27 +310,36 @@ const staggerContainer = {
 };
 
 /* ─── particles background ─── */
+const PARTICLE_SEEDS = Array.from({ length: 30 }, (_, i) => ({
+  id: i,
+  x1: ((i * 37 + 13) % 100),
+  y1: ((i * 53 + 7) % 100),
+  y2: ((i * 71 + 29) % 100),
+  duration: 6 + (i % 8) * 1.25,
+  delay: (i % 4) * 1.0,
+}));
+
 function Particles() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {Array.from({ length: 30 }).map((_, i) => (
+      {PARTICLE_SEEDS.map((p) => (
         <motion.div
-          key={i}
+          key={p.id}
           className="absolute w-1 h-1 rounded-full bg-gold/30"
           initial={{
-            x: `${Math.random() * 100}%`,
-            y: `${Math.random() * 100}%`,
+            x: `${p.x1}%`,
+            y: `${p.y1}%`,
             opacity: 0,
           }}
           animate={{
-            y: [`${Math.random() * 100}%`, `${Math.random() * 100}%`],
+            y: [`${p.y1}%`, `${p.y2}%`],
             opacity: [0, 0.6, 0],
           }}
           transition={{
-            duration: Math.random() * 8 + 6,
+            duration: p.duration,
             repeat: Infinity,
             ease: "easeInOut",
-            delay: Math.random() * 4,
+            delay: p.delay,
           }}
         />
       ))}
@@ -352,11 +361,11 @@ export default function Home() {
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
-  useState(() => {
+  useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  });
+  }, []);
 
   const handleNavClick = useCallback((href: string) => {
     setMobileMenuOpen(false);
