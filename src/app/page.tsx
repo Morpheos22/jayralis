@@ -294,6 +294,30 @@ const STATS = [
   { value: "\u221E", label: "Growth Potential", suffix: "" },
 ];
 
+const LEADERSHIP = [
+  {
+    name: "Abang-Friday Marjorie Enobong",
+    role: "Vice Chairwoman",
+    subtitle: "Board of Directors",
+    bio: "Marjorie provides strategic oversight and governance as Vice Chairwoman of the Jayralis Board of Directors, guiding the long-term vision and stewardship of the holding company across its diversified portfolio.",
+    image: "/staff-marjorie.jpg",
+  },
+  {
+    name: "Abang James Osang",
+    role: "Chief Operating Officer",
+    subtitle: "Member, Board of Directors",
+    bio: "James drives day-to-day operational excellence across all Jayralis subsidiaries, ensuring strategic alignment, financial discipline, and the seamless delivery of shared resources that empower each brand.",
+    image: "/staff-james.jpg",
+  },
+  {
+    name: "Enobong",
+    role: "Cohost",
+    subtitle: "Gist & Grits",
+    bio: "Enobong brings voice and vision to Jayralis Media as co-host of Gist & Grits, blending sharp cultural commentary with compelling storytelling that connects audiences across digital and traditional platforms.",
+    image: "/staff-enobong.jpg",
+  },
+];
+
 /* ─── reusable animation variants ─── */
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -736,8 +760,101 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─── LEADERSHIP SECTION ─── */}
+      <section className="relative py-24 sm:py-32 bg-white noise-overlay">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section header */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerContainer}
+            className="text-center mb-16 sm:mb-20"
+          >
+            <motion.div variants={fadeUp} custom={0}>
+              <span className="inline-block px-4 py-1.5 bg-gold/10 text-gold-dark text-xs font-bold tracking-[0.2em] uppercase rounded-full mb-6">
+                Our Leadership
+              </span>
+            </motion.div>
+            <motion.h2
+              variants={fadeUp}
+              custom={1}
+              className="text-3xl sm:text-4xl md:text-5xl font-bold text-navy mb-6"
+            >
+              The People Behind
+              <span className="text-gradient-gold"> Jayralis</span>
+            </motion.h2>
+            <motion.p
+              variants={fadeUp}
+              custom={2}
+              className="text-muted-foreground text-lg max-w-2xl mx-auto"
+            >
+              Visionary leaders and operators shaping the future of our holding company,
+              driving excellence across every subsidiary and community we serve.
+            </motion.p>
+          </motion.div>
+
+          {/* Leadership cards grid */}
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            {LEADERSHIP.map((person, i) => (
+              <motion.div
+                key={person.name}
+                variants={fadeUp}
+                custom={i}
+                whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                className="group relative bg-white rounded-3xl overflow-hidden border border-gold/10 shadow-sm hover:shadow-2xl hover:shadow-navy/10 transition-all duration-500"
+              >
+                {/* Image */}
+                <div className="relative aspect-[3/4] overflow-hidden bg-navy/5">
+                  <img
+                    src={person.image}
+                    alt={person.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                  />
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy-dark via-navy-dark/20 to-transparent opacity-90" />
+                  {/* Role badge */}
+                  <div className="absolute top-4 right-4">
+                    <span className="px-3 py-1.5 bg-gold/95 backdrop-blur-sm text-navy-dark text-[11px] font-bold tracking-wide uppercase rounded-full shadow-lg">
+                      {person.role}
+                    </span>
+                  </div>
+                  {/* Name overlay at bottom */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <h3 className="text-white font-bold text-xl leading-tight mb-1">
+                      {person.name}
+                    </h3>
+                    <p className="text-gold text-xs font-medium tracking-[0.15em] uppercase">
+                      {person.subtitle}
+                    </p>
+                  </div>
+                </div>
+                {/* Bio */}
+                <div className="p-6">
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    {person.bio}
+                  </p>
+                  <div className="mt-4 pt-4 border-t border-navy/5 flex items-center gap-2">
+                    <div className="w-8 h-px bg-gold" />
+                    <span className="text-gold-dark text-[11px] font-bold tracking-[0.2em] uppercase">
+                      Jayralis Company Limited
+                    </span>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
       {/* ─── PORTFOLIO SECTION ─── */}
-      <section id="portfolio" className="relative py-24 sm:py-32 bg-white noise-overlay">
+      <section id="portfolio" className="relative py-24 sm:py-32 bg-cream noise-overlay">
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section header */}
           <motion.div
