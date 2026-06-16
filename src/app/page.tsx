@@ -301,6 +301,8 @@ const LEADERSHIP = [
     subtitle: "Board of Directors",
     bio: "Marjorie provides strategic oversight and governance as Vice Chairwoman of the Jayralis Board of Directors, guiding the long-term vision and stewardship of the holding company across its diversified portfolio.",
     image: "/staff-marjorie.jpg",
+    imagePosition: "center 25%",
+    initials: "AM",
   },
   {
     name: "Abang James Osang",
@@ -308,6 +310,8 @@ const LEADERSHIP = [
     subtitle: "Member, Board of Directors",
     bio: "James drives day-to-day operational excellence across all Jayralis subsidiaries, ensuring strategic alignment, financial discipline, and the seamless delivery of shared resources that empower each brand.",
     image: "/staff-james.jpg",
+    imagePosition: "center top",
+    initials: "AJ",
   },
   {
     name: "Enobong",
@@ -315,6 +319,8 @@ const LEADERSHIP = [
     subtitle: "Gist & Grits",
     bio: "Enobong brings voice and vision to Jayralis Media as co-host of Gist & Grits, blending sharp cultural commentary with compelling storytelling that connects audiences across digital and traditional platforms.",
     image: "/staff-enobong.jpg",
+    imagePosition: "center 20%",
+    initials: "E",
   },
 ];
 
@@ -760,7 +766,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── LEADERSHIP SECTION ─── */}
+      {/* ─── LEADERSHIP SECTION (About Us — Our People) ─── */}
       <section className="relative py-24 sm:py-32 bg-white noise-overlay">
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section header */}
@@ -773,7 +779,7 @@ export default function Home() {
           >
             <motion.div variants={fadeUp} custom={0}>
               <span className="inline-block px-4 py-1.5 bg-gold/10 text-gold-dark text-xs font-bold tracking-[0.2em] uppercase rounded-full mb-6">
-                Our Leadership
+                About Us &mdash; Our Leadership
               </span>
             </motion.div>
             <motion.h2
@@ -792,6 +798,15 @@ export default function Home() {
               Visionary leaders and operators shaping the future of our holding company,
               driving excellence across every subsidiary and community we serve.
             </motion.p>
+            <motion.div
+              variants={fadeUp}
+              custom={3}
+              className="mt-8 flex items-center justify-center gap-3"
+            >
+              <div className="h-px w-12 bg-gradient-to-r from-transparent to-gold/60" />
+              <div className="w-2 h-2 rounded-full bg-gold" />
+              <div className="h-px w-12 bg-gradient-to-l from-transparent to-gold/60" />
+            </motion.div>
           </motion.div>
 
           {/* Leadership cards grid */}
@@ -800,55 +815,103 @@ export default function Home() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10"
           >
             {LEADERSHIP.map((person, i) => (
               <motion.div
                 key={person.name}
                 variants={fadeUp}
                 custom={i}
-                whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                className="group relative bg-white rounded-3xl overflow-hidden border border-gold/10 shadow-sm hover:shadow-2xl hover:shadow-navy/10 transition-all duration-500"
+                whileHover={{ y: -10, transition: { duration: 0.4 } }}
+                className="group relative bg-white rounded-3xl overflow-hidden border border-navy/5 shadow-[0_8px_30px_rgba(15,22,41,0.06)] hover:shadow-[0_24px_60px_rgba(15,22,41,0.15)] transition-all duration-500"
               >
-                {/* Image */}
-                <div className="relative aspect-[3/4] overflow-hidden bg-navy/5">
+                {/* Decorative gold corner accent */}
+                <div className="absolute top-0 left-0 w-20 h-20 z-10 pointer-events-none">
+                  <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-gold/60 to-transparent" />
+                  <div className="absolute top-0 left-0 h-full w-px bg-gradient-to-b from-gold/60 to-transparent" />
+                </div>
+
+                {/* Image with proper positioning */}
+                <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-br from-navy/5 to-navy/10">
                   <img
                     src={person.image}
-                    alt={person.name}
+                    alt={`${person.name} — ${person.role} at Jayralis Company Limited`}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                    style={{ objectPosition: person.imagePosition }}
                   />
-                  {/* Gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy-dark via-navy-dark/20 to-transparent opacity-90" />
+                  {/* Bottom gradient overlay for text legibility */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy-dark via-navy-dark/30 to-transparent" />
+                  {/* Subtle gold border on hover */}
+                  <div className="absolute inset-0 ring-1 ring-inset ring-gold/0 group-hover:ring-gold/30 transition-all duration-500" />
+
                   {/* Role badge */}
-                  <div className="absolute top-4 right-4">
-                    <span className="px-3 py-1.5 bg-gold/95 backdrop-blur-sm text-navy-dark text-[11px] font-bold tracking-wide uppercase rounded-full shadow-lg">
+                  <div className="absolute top-5 right-5">
+                    <span className="px-3.5 py-1.5 bg-gold text-navy-dark text-[10px] font-bold tracking-[0.15em] uppercase rounded-full shadow-lg shadow-gold/20">
                       {person.role}
                     </span>
                   </div>
-                  {/* Name overlay at bottom */}
+
+                  {/* Initials watermark */}
+                  <div className="absolute top-5 left-5 w-10 h-10 rounded-full border border-white/40 backdrop-blur-sm bg-white/10 flex items-center justify-center">
+                    <span className="text-white text-xs font-bold tracking-wider">
+                      {person.initials}
+                    </span>
+                  </div>
+
+                  {/* Name overlay at bottom of image */}
                   <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="text-white font-bold text-xl leading-tight mb-1">
+                    <h3 className="text-white font-bold text-xl sm:text-2xl leading-tight mb-1.5">
                       {person.name}
                     </h3>
-                    <p className="text-gold text-xs font-medium tracking-[0.15em] uppercase">
-                      {person.subtitle}
-                    </p>
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-px bg-gold" />
+                      <p className="text-gold text-[11px] font-semibold tracking-[0.18em] uppercase">
+                        {person.subtitle}
+                      </p>
+                    </div>
                   </div>
                 </div>
-                {/* Bio */}
-                <div className="p-6">
-                  <p className="text-muted-foreground text-sm leading-relaxed">
+
+                {/* Bio section */}
+                <div className="p-6 sm:p-7">
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-5">
                     {person.bio}
                   </p>
-                  <div className="mt-4 pt-4 border-t border-navy/5 flex items-center gap-2">
-                    <div className="w-8 h-px bg-gold" />
-                    <span className="text-gold-dark text-[11px] font-bold tracking-[0.2em] uppercase">
+                  <div className="pt-5 border-t border-navy/5 flex items-center justify-between">
+                    <span className="text-gold-dark text-[10px] font-bold tracking-[0.25em] uppercase">
                       Jayralis Company Limited
                     </span>
+                    <div className="flex gap-1">
+                      <div className="w-1 h-1 rounded-full bg-gold/60" />
+                      <div className="w-1 h-1 rounded-full bg-gold/40" />
+                      <div className="w-1 h-1 rounded-full bg-gold/20" />
+                    </div>
                   </div>
                 </div>
               </motion.div>
             ))}
+          </motion.div>
+
+          {/* Closing statement */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3, duration: 0.7 }}
+            className="mt-20 text-center max-w-3xl mx-auto"
+          >
+            <p className="text-navy/70 text-lg sm:text-xl font-light italic leading-relaxed">
+              &ldquo;Our leadership team brings together decades of combined experience in
+              governance, operations, and media &mdash; united by a shared commitment to
+              building lasting value for our brands, our people, and our communities.&rdquo;
+            </p>
+            <div className="mt-6 inline-flex items-center gap-3">
+              <div className="h-px w-8 bg-gold/60" />
+              <span className="text-gold-dark text-xs font-bold tracking-[0.25em] uppercase">
+                The Jayralis Board
+              </span>
+              <div className="h-px w-8 bg-gold/60" />
+            </div>
           </motion.div>
         </div>
       </section>
