@@ -294,33 +294,52 @@ const STATS = [
   { value: "\u221E", label: "Growth Potential", suffix: "" },
 ];
 
+const CEO = {
+  name: "Abang James Osah",
+  role: "Chief Executive Officer",
+  subtitle: "Jayralis Company Limited",
+  bio: "Abang James Osah leads Jayralis Company Limited as Founder and Chief Executive Officer, charting the strategic direction of a diversified Nigerian holding company spanning media, fashion, advertising, events, philanthropy, ventures, acquisition, and innovation. With a clear-eyed vision for VISION · OPPORTUNITY · GROWTH, he stewards the company's overarching strategy, finances, and shared resources while empowering each subsidiary to operate with autonomy and industry-specific excellence. His leadership philosophy is rooted in identifying untapped opportunities, driving innovative growth, delivering measurable value, and uplifting communities through the Jayralis Foundation — the philanthropic heartbeat of the group.",
+  image: "/staff-ceo-james.jpg",
+  imagePosition: "center top",
+  initials: "AJ",
+};
+
 const LEADERSHIP = [
   {
-    name: "Abang-Friday Marjorie Enobong",
-    role: "Vice Chairwoman",
-    subtitle: "Board of Directors",
-    bio: "Marjorie provides strategic oversight and governance as Vice Chairwoman of the Jayralis Board of Directors, guiding the long-term vision and stewardship of the holding company across its diversified portfolio.",
-    image: "/staff-marjorie.jpg",
-    imagePosition: "center 25%",
-    initials: "AM",
-  },
-  {
-    name: "Abang James Osang",
-    role: "Chief Operating Officer",
-    subtitle: "Member, Board of Directors",
-    bio: "James drives day-to-day operational excellence across all Jayralis subsidiaries, ensuring strategic alignment, financial discipline, and the seamless delivery of shared resources that empower each brand.",
-    image: "/staff-james.jpg",
+    name: "Ofonze Amarachi Princess",
+    role: "Head of Foundation Affairs",
+    subtitle: "Jayralis Foundation",
+    bio: "Ofonze Amarachi Princess leads the Jayralis Foundation, the philanthropic arm of the holding company dedicated to uplifting communities across Nigeria. She designs and oversees impact-driven initiatives in education, youth empowerment, and community development that translate the company's success into lasting social value.",
+    image: "/staff-foundation-ofonze.jpg",
     imagePosition: "center top",
-    initials: "AJ",
+    initials: "OP",
   },
   {
-    name: "Enobong",
-    role: "Cohost",
-    subtitle: "Gist & Grits",
-    bio: "Enobong brings voice and vision to Jayralis Media as co-host of Gist & Grits, blending sharp cultural commentary with compelling storytelling that connects audiences across digital and traditional platforms.",
-    image: "/staff-enobong.jpg",
-    imagePosition: "center 20%",
-    initials: "E",
+    name: "Afuye Deborah",
+    role: "Head of Media & Communications",
+    subtitle: "Spokesperson, Board of Directors",
+    bio: "Afuye Deborah directs the Jayralis Group narrative as Head of Media and Communications and official spokesperson for the Board of Directors. She shapes brand storytelling, oversees corporate communications across all eight subsidiaries, and ensures that the company's voice remains authoritative, consistent, and compelling across every channel.",
+    image: "/staff-media-deborah.jpg",
+    imagePosition: "center top",
+    initials: "AD",
+  },
+  {
+    name: "Dogulas-Rowland Nengi Victoria",
+    role: "Chief of Legal Affairs",
+    subtitle: "Secretary to the Board of Directors",
+    bio: "Dogulas-Rowland Nengi Victoria serves as Chief of Legal Affairs and Secretary to the Jayralis Board of Directors, providing governance, corporate secretarial, and regulatory oversight across the holding company and its subsidiaries. She safeguards the group's legal integrity, advises the board on compliance and risk, and ensures transparent governance at every level.",
+    image: "/staff-legal-nengi.jpg",
+    imagePosition: "center top",
+    initials: "DN",
+  },
+  {
+    name: "Oniya Ifeoma Pearl",
+    role: "Member, Board of Directors",
+    subtitle: "Jayralis Company Limited",
+    bio: "Oniya Ifeoma Pearl serves on the Jayralis Board of Directors, bringing strategic counsel and independent perspective to the governance of the holding company. She contributes to board deliberations on strategy, risk, and growth — helping steward the long-term direction and stewardship of the Jayralis portfolio.",
+    image: "/staff-board-ifeoma.jpg",
+    imagePosition: "center top",
+    initials: "OI",
   },
 ];
 
@@ -795,8 +814,9 @@ export default function Home() {
               custom={2}
               className="text-muted-foreground text-lg max-w-2xl mx-auto"
             >
-              Visionary leaders and operators shaping the future of our holding company,
-              driving excellence across every subsidiary and community we serve.
+              A unified leadership team stewarding strategy, governance,
+              communications, and community impact across the Jayralis portfolio
+              and its eight subsidiaries.
             </motion.p>
             <motion.div
               variants={fadeUp}
@@ -809,13 +829,94 @@ export default function Home() {
             </motion.div>
           </motion.div>
 
-          {/* Leadership cards grid */}
+          {/* Featured CEO Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="mb-12 lg:mb-16"
+          >
+            <div className="group relative bg-white rounded-[2rem] overflow-hidden border border-gold/15 shadow-[0_16px_60px_rgba(15,22,41,0.10)] hover:shadow-[0_24px_80px_rgba(15,22,41,0.18)] transition-all duration-500">
+              {/* Gold accent corners */}
+              <div className="absolute top-0 left-0 w-24 h-24 z-20 pointer-events-none">
+                <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-gold to-transparent" />
+                <div className="absolute top-0 left-0 h-full w-px" style={{ background: "linear-gradient(to bottom, rgba(201,169,97,1), transparent)" }} />
+              </div>
+              <div className="absolute bottom-0 right-0 w-24 h-24 z-20 pointer-events-none">
+                <div className="absolute bottom-0 right-0 w-full h-px bg-gradient-to-l from-gold to-transparent" />
+                <div className="absolute bottom-0 right-0 h-full w-px" style={{ background: "linear-gradient(to top, rgba(201,169,97,1), transparent)" }} />
+              </div>
+
+              <div className="grid lg:grid-cols-5 gap-0">
+                {/* CEO Portrait */}
+                <div className="lg:col-span-2 relative aspect-[4/5] lg:aspect-auto lg:min-h-[480px] overflow-hidden bg-gradient-to-br from-navy/5 to-navy/10">
+                  <img
+                    src={CEO.image}
+                    alt={`${CEO.name} — ${CEO.role} at Jayralis Company Limited`}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                    style={{ objectPosition: CEO.imagePosition }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/80 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-transparent lg:to-navy-dark/20" />
+                  <div className="absolute inset-0 ring-1 ring-inset ring-gold/0 group-hover:ring-gold/30 transition-all duration-500" />
+
+                  {/* CEO badge */}
+                  <div className="absolute top-6 left-6 flex items-center gap-3">
+                    <span className="px-4 py-2 bg-gold text-navy-dark text-[10px] font-bold tracking-[0.2em] uppercase rounded-full shadow-lg shadow-gold/30">
+                      Chief Executive
+                    </span>
+                  </div>
+
+                  {/* Initials watermark */}
+                  <div className="absolute top-6 right-6 w-12 h-12 rounded-full border border-white/40 backdrop-blur-sm bg-white/10 flex items-center justify-center">
+                    <span className="text-white text-sm font-bold tracking-wider">
+                      {CEO.initials}
+                    </span>
+                  </div>
+                </div>
+
+                {/* CEO Content */}
+                <div className="lg:col-span-3 p-8 sm:p-10 lg:p-12 flex flex-col justify-center">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-8 h-px bg-gold" />
+                    <span className="text-gold-dark text-[11px] font-bold tracking-[0.25em] uppercase">
+                      Office of the CEO
+                    </span>
+                  </div>
+                  <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-navy mb-3 leading-tight">
+                    {CEO.name}
+                  </h3>
+                  <p className="text-lg sm:text-xl text-gold-dark font-semibold mb-6">
+                    {CEO.role}
+                    <span className="text-muted-foreground font-normal text-base">
+                      {" "}&middot; {CEO.subtitle}
+                    </span>
+                  </p>
+                  <p className="text-muted-foreground text-base sm:text-lg leading-relaxed mb-8">
+                    {CEO.bio}
+                  </p>
+                  <div className="pt-6 border-t border-navy/5 flex items-center justify-between flex-wrap gap-4">
+                    <span className="text-gold-dark text-[10px] font-bold tracking-[0.3em] uppercase">
+                      Founder &middot; Chief Executive
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-gold" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-gold/60" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-gold/30" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Leadership team grid — division heads */}
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10"
+            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8"
           >
             {LEADERSHIP.map((person, i) => (
               <motion.div
@@ -823,12 +924,12 @@ export default function Home() {
                 variants={fadeUp}
                 custom={i}
                 whileHover={{ y: -10, transition: { duration: 0.4 } }}
-                className="group relative bg-white rounded-3xl overflow-hidden border border-navy/5 shadow-[0_8px_30px_rgba(15,22,41,0.06)] hover:shadow-[0_24px_60px_rgba(15,22,41,0.15)] transition-all duration-500"
+                className="group relative bg-white rounded-3xl overflow-hidden border border-navy/5 shadow-[0_8px_30px_rgba(15,22,41,0.06)] hover:shadow-[0_24px_60px_rgba(15,22,41,0.15)] transition-all duration-500 flex flex-col"
               >
                 {/* Decorative gold corner accent */}
                 <div className="absolute top-0 left-0 w-20 h-20 z-10 pointer-events-none">
                   <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-gold/60 to-transparent" />
-                  <div className="absolute top-0 left-0 h-full w-px bg-gradient-to-b from-gold/60 to-transparent" />
+                  <div className="absolute top-0 left-0 h-full w-px" style={{ background: "linear-gradient(to bottom, rgba(201,169,97,0.6), transparent)" }} />
                 </div>
 
                 {/* Image with proper positioning */}
@@ -845,8 +946,8 @@ export default function Home() {
                   <div className="absolute inset-0 ring-1 ring-inset ring-gold/0 group-hover:ring-gold/30 transition-all duration-500" />
 
                   {/* Role badge */}
-                  <div className="absolute top-5 right-5">
-                    <span className="px-3.5 py-1.5 bg-gold text-navy-dark text-[10px] font-bold tracking-[0.15em] uppercase rounded-full shadow-lg shadow-gold/20">
+                  <div className="absolute top-5 right-5 max-w-[60%]">
+                    <span className="inline-block px-3 py-1.5 bg-gold text-navy-dark text-[10px] font-bold tracking-[0.12em] uppercase rounded-full shadow-lg shadow-gold/20">
                       {person.role}
                     </span>
                   </div>
@@ -859,13 +960,13 @@ export default function Home() {
                   </div>
 
                   {/* Name overlay at bottom of image */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="text-white font-bold text-xl sm:text-2xl leading-tight mb-1.5">
+                  <div className="absolute bottom-0 left-0 right-0 p-5">
+                    <h3 className="text-white font-bold text-lg sm:text-xl leading-tight mb-1">
                       {person.name}
                     </h3>
                     <div className="flex items-center gap-2">
-                      <div className="w-6 h-px bg-gold" />
-                      <p className="text-gold text-[11px] font-semibold tracking-[0.18em] uppercase">
+                      <div className="w-5 h-px bg-gold" />
+                      <p className="text-gold text-[10px] font-semibold tracking-[0.15em] uppercase leading-tight">
                         {person.subtitle}
                       </p>
                     </div>
@@ -873,13 +974,13 @@ export default function Home() {
                 </div>
 
                 {/* Bio section */}
-                <div className="p-6 sm:p-7">
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-5">
+                <div className="p-5 sm:p-6 flex flex-col flex-1">
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-5 flex-1">
                     {person.bio}
                   </p>
-                  <div className="pt-5 border-t border-navy/5 flex items-center justify-between">
-                    <span className="text-gold-dark text-[10px] font-bold tracking-[0.25em] uppercase">
-                      Jayralis Company Limited
+                  <div className="pt-4 border-t border-navy/5 flex items-center justify-between">
+                    <span className="text-gold-dark text-[9px] font-bold tracking-[0.25em] uppercase">
+                      Jayralis Group
                     </span>
                     <div className="flex gap-1">
                       <div className="w-1 h-1 rounded-full bg-gold/60" />
@@ -902,8 +1003,9 @@ export default function Home() {
           >
             <p className="text-navy/70 text-lg sm:text-xl font-light italic leading-relaxed">
               &ldquo;Our leadership team brings together decades of combined experience in
-              governance, operations, and media &mdash; united by a shared commitment to
-              building lasting value for our brands, our people, and our communities.&rdquo;
+              governance, operations, media, legal affairs, and community impact &mdash;
+              united by a shared commitment to building lasting value for our brands,
+              our people, and our communities.&rdquo;
             </p>
             <div className="mt-6 inline-flex items-center gap-3">
               <div className="h-px w-8 bg-gold/60" />
