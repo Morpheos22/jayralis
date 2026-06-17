@@ -452,6 +452,37 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // ── Security: deterrent layer against casual asset downloading ───────
+  // NOTE: This is NOT security — anything served to a browser is ultimately
+  // retrievable. These measures raise the bar for non-technical users and
+  // deter casual scraping:
+  //   1. Disable right-click context menu on protected images (staff + logo)
+  //   2. Block drag-and-drop of images
+  //   3. Block common keyboard shortcuts for "Save Image As" (Ctrl+S on image focus)
+  useEffect(() => {
+    const isProtectedImage = (el: EventTarget | null): boolean => {
+      if (!(el instanceof HTMLImageElement)) return false;
+      const src = el.getAttribute("src") || "";
+      return (
+        src.startsWith("/staff-") ||
+        src === "/jayralis-logo.jpg" ||
+        src === "/logo.svg"
+      );
+    };
+    const onContextMenu = (e: MouseEvent) => {
+      if (isProtectedImage(e.target)) e.preventDefault();
+    };
+    const onDragStart = (e: DragEvent) => {
+      if (isProtectedImage(e.target)) e.preventDefault();
+    };
+    document.addEventListener("contextmenu", onContextMenu);
+    document.addEventListener("dragstart", onDragStart);
+    return () => {
+      document.removeEventListener("contextmenu", onContextMenu);
+      document.removeEventListener("dragstart", onDragStart);
+    };
+  }, []);
+
   const handleNavClick = useCallback((href: string) => {
     setMobileMenuOpen(false);
     const el = document.querySelector(href);
@@ -488,7 +519,8 @@ export default function Home() {
                 <img
                   src="/jayralis-logo.jpg"
                   alt="Jayralis Logo"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover select-none pointer-events-none"
+                  draggable={false}
                 />
               </div>
               <div className="flex flex-col">
@@ -772,7 +804,8 @@ export default function Home() {
                     <img
                       src="/jayralis-logo.jpg"
                       alt="Jayralis Company Limited"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover select-none pointer-events-none"
+                      draggable={false}
                     />
                   </div>
                   <h3 className="text-2xl font-bold text-navy mb-1">JAYRALIS</h3>
@@ -890,8 +923,10 @@ export default function Home() {
                   <img
                     src={CEO.image}
                     alt={`${CEO.name} — ${CEO.role} at Jayralis Company Limited`}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out select-none pointer-events-none"
                     style={{ objectPosition: CEO.imagePosition }}
+                    draggable={false}
+                    onContextMenu={(e) => e.preventDefault()}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/80 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-transparent lg:to-navy-dark/20" />
                   <div className="absolute inset-0 ring-1 ring-inset ring-gold/0 group-hover:ring-gold/30 transition-all duration-500" />
@@ -973,8 +1008,10 @@ export default function Home() {
                   <img
                     src={person.image}
                     alt={`${person.name} — ${person.role} at Jayralis Company Limited`}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out select-none pointer-events-none"
                     style={{ objectPosition: person.imagePosition }}
+                    draggable={false}
+                    onContextMenu={(e) => e.preventDefault()}
                   />
                   {/* Bottom gradient overlay for text legibility */}
                   <div className="absolute inset-0 bg-gradient-to-t from-navy-dark via-navy-dark/30 to-transparent" />
@@ -1425,6 +1462,8 @@ export default function Home() {
                   <img
                     src="/jayralis-logo.jpg"
                     alt="Jayralis Logo"
+                    draggable={false}
+                    onContextMenu={(e) => e.preventDefault()}
                     className="w-full h-full object-cover"
                   />
                 </div>

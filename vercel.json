@@ -1,0 +1,68 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "version": 2,
+  "github": {
+    "silent": true
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "X-DNS-Prefetch-Control", "value": "off" },
+        { "key": "X-Permitted-Cross-Domain-Policies", "value": "none" }
+      ]
+    },
+    {
+      "source": "/staff-:path*",
+      "headers": [
+        { "key": "Cache-Control", "value": "private, max-age=86400, must-revalidate" },
+        { "key": "X-Robots-Tag", "value": "noindex, noarchive, nosnippet" },
+        { "key": "Cross-Origin-Resource-Policy", "value": "same-origin" },
+        { "key": "Cross-Origin-Embedder-Policy", "value": "require-corp" }
+      ]
+    },
+    {
+      "source": "/jayralis-logo.jpg",
+      "headers": [
+        { "key": "Cache-Control", "value": "private, max-age=86400, must-revalidate" },
+        { "key": "X-Robots-Tag", "value": "noindex, noarchive" },
+        { "key": "Cross-Origin-Resource-Policy", "value": "same-origin" }
+      ]
+    },
+    {
+      "source": "/logo.svg",
+      "headers": [
+        { "key": "Cache-Control", "value": "private, max-age=86400, must-revalidate" },
+        { "key": "X-Robots-Tag", "value": "noindex, noarchive" },
+        { "key": "Cross-Origin-Resource-Policy", "value": "same-origin" }
+      ]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" },
+        { "key": "Cache-Control", "value": "no-store, no-cache, must-revalidate" }
+      ]
+    },
+    {
+      "source": "/:path*.map",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store, no-cache, must-revalidate" },
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
+    }
+  ],
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/.env", "destination": "/404", "permanent": false },
+    { "source": "/.env.local", "destination": "/404", "permanent": false },
+    { "source": "/.env.production", "destination": "/404", "permanent": false },
+    { "source": "/package-lock.json", "destination": "/404", "permanent": false },
+    { "source": "/bun.lock", "destination": "/404", "permanent": false },
+    { "source": "/README.md", "destination": "/404", "permanent": false }
+  ]
+}

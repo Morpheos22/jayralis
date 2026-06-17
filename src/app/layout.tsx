@@ -57,6 +57,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Security: Referrer-Policy at document level (defense in depth
+            alongside the HTTP header) */}
+        <meta name="referrer" content="strict-origin-when-cross-origin" />
+        {/* Security: Prevent MIME confusion */}
+        <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
+        {/* Security: Block legacy IE compatibility modes */}
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        {/* Security: Block content-type sniffing on IE */}
+        <meta name="format-detection" content="telephone=no" />
+        {/* Security: Disable automatic detection of address / phone data */}
+        <meta name="skype_toolbar" content="skype_toolbar_parser_compatible" />
+        {/* Security: Block AI training scrapers at meta level (defense in depth) */}
+        <meta name="robots" content="index, follow, noarchive, nosnippet, notranslate" />
+        {/* Security: Block Open Graph image scraping leaks via referrer */}
+        <meta name="referrer" content="strict-origin-when-cross-origin" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >

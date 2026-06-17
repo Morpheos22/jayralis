@@ -1,14 +1,88 @@
+# robots.txt — Jayralis Company Limited
+# Allow indexing of the main page only; block all raw asset paths
+
 User-agent: Googlebot
 Allow: /
+Disallow: /api/
+Disallow: /staff-*.jpg
+Disallow: /staff-*.png
+Disallow: /jayralis-logo.jpg
+Disallow: /logo.svg
 
 User-agent: Bingbot
 Allow: /
+Disallow: /api/
+Disallow: /staff-*.jpg
+Disallow: /staff-*.png
+Disallow: /jayralis-logo.jpg
+Disallow: /logo.svg
 
 User-agent: Twitterbot
 Allow: /
+Disallow: /api/
 
 User-agent: facebookexternalhit
 Allow: /
+Disallow: /api/
 
+User-agent: LinkedInBot
+Allow: /
+Disallow: /api/
+
+# Block all known asset-scraping bots explicitly
+User-agent: curl
+Disallow: /
+
+User-agent: wget
+Disallow: /
+
+User-agent: scrapy
+Disallow: /
+
+User-agent: python-requests
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: PerplexityBot
+Disallow: /
+
+# Default
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /staff-*.jpg
+Disallow: /staff-*.png
+Disallow: /jayralis-logo.jpg
+Disallow: /logo.svg
+
+# Sitemap
+Sitemap: https://jayralis.fyi/sitemap.xml

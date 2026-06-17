@@ -49,3 +49,5 @@ upload/
 worklog.md
 yarn-debug.log*
 yarn-error.log*
+examples/
+dev.log
