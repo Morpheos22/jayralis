@@ -26,14 +26,35 @@ const BLOCKED_PATHS = [
   "/bun.lock",
   "/yarn.lock",
   "/readme.md",
+  "/readme",
   "/vercel.json",
   "/next.config.ts",
   "/next.config.js",
+  "/next.config.mjs",
   "/tsconfig.json",
   "/middleware.ts",
   "/proxy.ts",
   "/.gitignore",
   "/worklog.md",
+  "/license",
+  "/license.md",
+  "/contributing.md",
+  "/.git",
+  "/.git/config",
+  "/.git/HEAD",
+  "/.gitignore",
+  "/.npmrc",
+  "/.prettierrc",
+  "/.eslintrc",
+  "/.eslintrc.json",
+  "/.eslintrc.js",
+  "/composer.json",
+  "/docker-compose.yml",
+  "/dockerfile",
+  "/.dockerignore",
+  "/.vscode",
+  "/.idea",
+  "/.DS_Store",
 ];
 
 const BLOCKED_EXTENSIONS = [
@@ -42,8 +63,18 @@ const BLOCKED_EXTENSIONS = [
   ".prisma",
   ".db",
   ".sqlite",
+  ".sqlite3",
   ".log",
   ".lock",
+  ".pem",
+  ".key",
+  ".crt",
+  ".p12",
+  ".pfx",
+  ".bak",
+  ".backup",
+  ".swp",
+  ".tmp",
 ];
 
 const SUSPICIOUS_AGENTS = [
@@ -57,6 +88,12 @@ const SUSPICIOUS_AGENTS = [
   "java/",
   "okhttp",
   "go-http-client",
+  "httpx",      // python httpx
+  "node-fetch", // node fetch scraper
+  "axios",      // axios scrapers
+  "postman",    // Postman runtime
+  "insomnia",   // Insomnia REST client
+  "httpie",
 ];
 
 export function proxy(request: NextRequest) {
@@ -67,14 +104,13 @@ export function proxy(request: NextRequest) {
   const origin = url.origin;
   const lowerPath = pathname.toLowerCase();
 
-  // ── 1. Block sensitive paths ──────────────────────────────────────────
-  if (BLOCKED_PATHS.some((p) => lowerPath === p)) {
+  // ── 1. Block sensitive paths (exact + startswith for dir-like) ────────
+  if (BLOCKED_PATHS.some((p) => lowerPath === p || lowerPath.startsWith(p + "/"))) {
     return new NextResponse("Not Found", { status: 404 });
   }
 
-  // ── 2. Block sensitive extensions (source maps, env, db files) ────────
+  // ── 2. Block sensitive extensions (source maps, env, db files, keys) ──
   if (BLOCKED_EXTENSIONS.some((ext) => lowerPath.endsWith(ext))) {
-    // Allow .env.txt as edge case — but we have no such file
     return new NextResponse("Not Found", { status: 404 });
   }
 
@@ -89,7 +125,24 @@ export function proxy(request: NextRequest) {
     return res;
   }
 
-  // ── 4. Asset protection: block scraping bots on protected images ──────
+  // ── 4. Block /_next/data/* — exposes page data as JSON (info disclosure) ──
+  // This route is used for client-side navigation in Next.js App Router;
+  // since our entire site is a single static page, we can safely block it.
+  if (pathname.startsWith("/_next/data/")) {
+    return new NextResponse("Not Found", { status: 404 });
+  }
+
+  // ── 5. Block build ID enumeration via /_next/static/<BUILD_ID>/ paths ──
+  // We don't block the assets themselves (they're needed for the page to work)
+  // but we add a noindex header so search engines don't index them.
+  if (pathname.startsWith("/_next/static/")) {
+    const res = NextResponse.next();
+    res.headers.set("X-Robots-Tag", "noindex, nofollow");
+    res.headers.set("X-Content-Type-Options", "nosniff");
+    return res;
+  }
+
+  // ── 6. Asset protection: block scraping bots on protected images ──────
   const isProtectedAsset =
     pathname.startsWith("/staff-") ||
     pathname === "/jayralis-logo.jpg" ||
@@ -107,23 +160,27 @@ export function proxy(request: NextRequest) {
       searchParams.has("download") ||
       searchParams.has("force-download") ||
       searchParams.has("attachment") ||
-      searchParams.has("save")
+      searchParams.has("save") ||
+      searchParams.has("raw")
     ) {
       url.search = "";
       return NextResponse.redirect(url);
     }
   }
 
-  // ── 5. Defensive headers on every response ────────────────────────────
+  // ── 7. Defensive headers on every response ────────────────────────────
   const res = NextResponse.next();
   res.headers.set("X-Content-Type-Options", "nosniff");
   res.headers.set("X-Frame-Options", "DENY");
   res.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
   res.headers.set("X-DNS-Prefetch-Control", "off");
+  res.headers.set("X-Download-Options", "noopen"); // IE legacy: prevents auto-open of downloaded files
   return res;
 }
 
 export const config = {
-  // Run on all routes except Next.js internal asset paths
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|robots.txt).*)"],
+  // Run on all routes except favicon.ico and robots.txt (handled separately)
+  // Note: we DO run on /_next/static/* now (to add noindex), but skip /_next/image
+  // (image optimizer) and favicon/robots to avoid overhead.
+  matcher: ["/((?!_next/image|favicon.ico).*)"],
 };

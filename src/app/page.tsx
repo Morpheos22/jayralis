@@ -306,13 +306,13 @@ const CEO = {
 
 const LEADERSHIP = [
   {
-    name: "Abang-Friday Marjorie Enobong",
+    name: "Majorie Friday-Abang",
     role: "Vice Chairwoman",
     subtitle: "Board of Directors",
-    bio: "Marjorie provides strategic oversight and governance as Vice Chairwoman of the Jayralis Board of Directors, guiding the long-term vision and stewardship of the holding company across its diversified portfolio of eight subsidiaries.",
+    bio: "Majorie provides strategic oversight and governance as Vice Chairwoman of the Jayralis Board of Directors, guiding the long-term vision and stewardship of the holding company across its diversified portfolio of eight subsidiaries.",
     image: "/staff-marjorie.jpg",
     imagePosition: "center 25%",
-    initials: "AM",
+    initials: "MF",
   },
   {
     name: "Abang James Osang",

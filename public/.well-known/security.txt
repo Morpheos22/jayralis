@@ -1,0 +1,16 @@
+Contact: mailto:Ceo@jayralis.fyi
+Preferred-Languages: en
+Canonical: https://www.jayralis.fyi/.well-known/security.txt
+Policy: https://www.jayralis.fyi/security
+
+# Responsible disclosure policy:
+# If you discover a security vulnerability on jayralis.fyi, please report
+# it to Ceo@jayralis.fyi with full details. We commit to acknowledging
+# receipt within 48 hours and providing a substantive response within
+# 5 business days. Please do not publicly disclose the issue until we
+# have had a reasonable opportunity to investigate and remediate.
+#
+# Scope: https://www.jayralis.fyi and all subdomains.
+# Out of scope: denial-of-service, social engineering, physical attacks.
+# Rewards: We do not currently offer a monetary bug bounty, but
+# responsible reporters will be credited on request.

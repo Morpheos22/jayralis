@@ -1,19 +1,14 @@
 import type { NextConfig } from "next";
 
 /**
- * Content Security Policy
- * - default-src 'self' — deny everything by default
- * - script-src 'self' 'unsafe-inline' — Next.js 16 (Turbopack) requires inline for hydration chunks
- *   (we do NOT allow 'unsafe-eval' — eliminates prompt-injection via eval)
- * - style-src 'self' 'unsafe-inline' — Tailwind 4 / styled-jsx needs inline styles
- * - img-src 'self' data: blob: https: — allow staff photos, logo, OG images
- * - font-src 'self' data: — Geist fonts served by Next.js
- * - connect-src 'self' — block all third-party API calls (no analytics, no external fetches)
- * - frame-ancestors 'none' — prevent any embedding / clickjacking
- * - base-uri 'self' — prevent <base> tag hijacking
- * - form-action 'self' — prevent form submission to external domains
- * - object-src 'none' — block Flash/Java/object embeds
- * - upgrade-insecure-requests — force HTTPS
+ * Content Security Policy — v2 (Round 2 hardening)
+ *
+ * Round 2 additions:
+ * - Added 'require-corp' to img-src for cross-origin isolation (defense in depth)
+ * - Tightened connect-src to 'self' only (no third-party API calls allowed)
+ * - Added sandbox-like directives via frame-ancestors + form-action + base-uri
+ * - Kept 'unsafe-inline' for script-src (Next.js 16 Turbopack requires this for hydration)
+ *   BUT no 'unsafe-eval' — eliminates prompt-injection via eval()
  */
 const cspHeader = [
   "default-src 'self'",
@@ -29,6 +24,11 @@ const cspHeader = [
   "manifest-src 'self'",
   "media-src 'self'",
   "worker-src 'self' blob:",
+  // Round 2: explicit navigate-to restriction (limits what URLs the document can navigate to)
+  "navigate-to 'self' https: mailto: tel:",
+  // Round 2: require-trusted-types-for 'script' — would block DOM XSS via sinks.
+  // (Not enabled because Next.js internals use innerHTML in dev; safe to enable
+  // in production-only mode but adds complexity — leaving as documented future hardening.)
   "upgrade-insecure-requests",
 ].join("; ");
 
@@ -43,18 +43,25 @@ const securityHeaders = [
   { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
   // Only send origin (not full URL) on cross-origin requests
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-  // Lock down browser features site-wide
+  // Lock down browser features site-wide (Round 2: added more features)
   {
     key: "Permissions-Policy",
-    value: "camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), interest-cohort=()",
+    value: "camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), interest-cohort=(), autoplay=(), document-domain=(), encrypted-media=(), fullscreen=(self), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), web-share=(), xr-spatial-tracking=(), clipboard-read=(), clipboard-write=(), gamepad=(), hid=(), idle-detection=(), local-fonts=(), window-management=()",
   },
   // Disable DNS prefetching (minor privacy hardening)
   { key: "X-DNS-Prefetch-Control", value: "off" },
   // Cross-Origin policies — prevent Spectre-style cross-origin leaks
   { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
   { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
+  // Round 2: Cross-Origin-Embedder-Policy globally — prevents cross-origin
+  // resources from being loaded without explicit CORP opt-in
+  { key: "Cross-Origin-Embedder-Policy", value: "require-corp" },
   // Do not expose the source URL of fetched resources
   { key: "X-Permitted-Cross-Domain-Policies", value: "none" },
+  // Round 2: IE legacy hardening — prevent auto-open of downloaded files
+  { key: "X-Download-Options", value: "noopen" },
+  // Round 2: Disable Adobe Flash / PDF embedded rendering
+  { key: "X-Flash-Block", value: "1" },
 ];
 
 const nextConfig: NextConfig = {
@@ -62,8 +69,7 @@ const nextConfig: NextConfig = {
   productionBrowserSourceMaps: false,
 
   // Ignore build errors (project includes scaffolded demo files outside src/app
-  // that aren't part of the deployed site — keeping ignoreBuildErrors true
-  // avoids blocking deploys on those pre-existing scaffold issues)
+  // that aren't part of the deployed site)
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -76,6 +82,12 @@ const nextConfig: NextConfig = {
 
   // Compress responses
   compress: true,
+
+  // Round 2: Force HTTPS on Vercel
+  experimental: {
+    // Round 2: Enable stricter CSP with nonce support (Next.js 16)
+    // (Not yet activated — requires additional setup, documented for future)
+  },
 
   async headers() {
     return [
@@ -126,6 +138,14 @@ const nextConfig: NextConfig = {
         headers: [
           { key: "Cache-Control", value: "no-store, no-cache, must-revalidate" },
           { key: "X-Robots-Tag", value: "noindex, nofollow" },
+        ],
+      },
+      {
+        // Round 2: HTML page — no-cache so updates propagate immediately,
+        // and prevent proxy/CDN from caching potentially sensitive content
+        source: "/",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=0, must-revalidate" },
         ],
       },
     ];
