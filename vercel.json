@@ -16,7 +16,7 @@
       ]
     },
     {
-      "source": "/staff-:path*",
+      "source": "/(staff-.*)",
       "headers": [
         { "key": "Cache-Control", "value": "private, max-age=86400, must-revalidate" },
         { "key": "X-Robots-Tag", "value": "noindex, noarchive, nosnippet" },
@@ -48,7 +48,7 @@
       ]
     },
     {
-      "source": "/:path*.map",
+      "source": "/(.*).map",
       "headers": [
         { "key": "Cache-Control", "value": "no-store, no-cache, must-revalidate" },
         { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
@@ -56,13 +56,6 @@
     }
   ],
   "cleanUrls": true,
-  "trailingSlash": false,
-  "redirects": [
-    { "source": "/.env", "destination": "/404", "permanent": false },
-    { "source": "/.env.local", "destination": "/404", "permanent": false },
-    { "source": "/.env.production", "destination": "/404", "permanent": false },
-    { "source": "/package-lock.json", "destination": "/404", "permanent": false },
-    { "source": "/bun.lock", "destination": "/404", "permanent": false },
-    { "source": "/README.md", "destination": "/404", "permanent": false }
-  ]
+  "trailingSlash": false
 }
+
