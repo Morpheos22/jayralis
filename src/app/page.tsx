@@ -306,10 +306,28 @@ const CEO = {
 
 const LEADERSHIP = [
   {
+    name: "Abang-Friday Marjorie Enobong",
+    role: "Vice Chairwoman",
+    subtitle: "Board of Directors",
+    bio: "Marjorie provides strategic oversight and governance as Vice Chairwoman of the Jayralis Board of Directors, guiding the long-term vision and stewardship of the holding company across its diversified portfolio of eight subsidiaries.",
+    image: "/staff-marjorie.jpg",
+    imagePosition: "center 25%",
+    initials: "AM",
+  },
+  {
+    name: "Abang James Osang",
+    role: "Chief Operating Officer",
+    subtitle: "Member, Board of Directors",
+    bio: "James drives day-to-day operational excellence across all Jayralis subsidiaries, ensuring strategic alignment, financial discipline, and the seamless delivery of shared resources that empower each brand to operate with autonomy.",
+    image: "/staff-osang.jpg",
+    imagePosition: "center top",
+    initials: "AO",
+  },
+  {
     name: "Ofonze Amarachi Princess",
     role: "Head of Foundation Affairs",
     subtitle: "Jayralis Foundation",
-    bio: "Ofonze Amarachi Princess leads the Jayralis Foundation, the philanthropic arm of the holding company dedicated to uplifting communities across Nigeria. She designs and oversees impact-driven initiatives in education, youth empowerment, and community development that translate the company's success into lasting social value.",
+    bio: "Ofonze leads the Jayralis Foundation, the philanthropic arm of the holding company dedicated to uplifting communities across Nigeria. She oversees impact-driven initiatives in education, youth empowerment, and community development.",
     image: "/staff-foundation-ofonze.jpg",
     imagePosition: "center top",
     initials: "OP",
@@ -318,7 +336,7 @@ const LEADERSHIP = [
     name: "Afuye Deborah",
     role: "Head of Media & Communications",
     subtitle: "Spokesperson, Board of Directors",
-    bio: "Afuye Deborah directs the Jayralis Group narrative as Head of Media and Communications and official spokesperson for the Board of Directors. She shapes brand storytelling, oversees corporate communications across all eight subsidiaries, and ensures that the company's voice remains authoritative, consistent, and compelling across every channel.",
+    bio: "Deborah directs the Jayralis Group narrative as Head of Media and Communications and official spokesperson for the Board. She shapes brand storytelling and ensures the company's voice remains authoritative across every channel.",
     image: "/staff-media-deborah.jpg",
     imagePosition: "center top",
     initials: "AD",
@@ -327,7 +345,7 @@ const LEADERSHIP = [
     name: "Dogulas-Rowland Nengi Victoria",
     role: "Chief of Legal Affairs",
     subtitle: "Secretary to the Board of Directors",
-    bio: "Dogulas-Rowland Nengi Victoria serves as Chief of Legal Affairs and Secretary to the Jayralis Board of Directors, providing governance, corporate secretarial, and regulatory oversight across the holding company and its subsidiaries. She safeguards the group's legal integrity, advises the board on compliance and risk, and ensures transparent governance at every level.",
+    bio: "Nengi serves as Chief of Legal Affairs and Secretary to the Jayralis Board, providing governance, corporate secretarial, and regulatory oversight. She safeguards the group's legal integrity and advises the board on compliance and risk.",
     image: "/staff-legal-nengi.jpg",
     imagePosition: "center top",
     initials: "DN",
@@ -336,10 +354,28 @@ const LEADERSHIP = [
     name: "Oniya Ifeoma Pearl",
     role: "Member, Board of Directors",
     subtitle: "Jayralis Company Limited",
-    bio: "Oniya Ifeoma Pearl serves on the Jayralis Board of Directors, bringing strategic counsel and independent perspective to the governance of the holding company. She contributes to board deliberations on strategy, risk, and growth — helping steward the long-term direction and stewardship of the Jayralis portfolio.",
+    bio: "Pearl serves on the Jayralis Board of Directors, bringing strategic counsel and independent perspective to the governance of the holding company. She contributes to board deliberations on strategy, risk, and growth.",
     image: "/staff-board-ifeoma.jpg",
     imagePosition: "center top",
     initials: "OI",
+  },
+  {
+    name: "Odoh Maxwell Egwu",
+    role: "Member, Board of Directors",
+    subtitle: "Jayralis Company Limited",
+    bio: "Maxwell serves on the Jayralis Board of Directors, contributing strategic insight and oversight to the governance of the holding company. He supports board deliberations on portfolio strategy, risk management, and long-term value creation.",
+    image: "/staff-board-odoh.png",
+    imagePosition: "center top",
+    initials: "OM",
+  },
+  {
+    name: "Enobong",
+    role: "Cohost",
+    subtitle: "Gist & Grits",
+    bio: "Enobong brings voice and vision to Jayralis Media as co-host of Gist & Grits, blending sharp cultural commentary with compelling storytelling that connects audiences across digital and traditional platforms.",
+    image: "/staff-enobong.jpg",
+    imagePosition: "center 20%",
+    initials: "E",
   },
 ];
 
@@ -815,8 +851,8 @@ export default function Home() {
               className="text-muted-foreground text-lg max-w-2xl mx-auto"
             >
               A unified leadership team stewarding strategy, governance,
-              communications, and community impact across the Jayralis portfolio
-              and its eight subsidiaries.
+              operations, communications, legal affairs, and community impact
+              across the Jayralis portfolio and its eight subsidiaries.
             </motion.p>
             <motion.div
               variants={fadeUp}
